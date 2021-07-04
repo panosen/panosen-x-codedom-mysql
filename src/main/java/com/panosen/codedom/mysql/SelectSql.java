@@ -13,9 +13,9 @@ public class SelectSql extends Sql {
     private String tableName;
 
     /**
-     * select ${columnNames} from table
+     * select ${columnNameList} from table
      */
-    private List<String> columnNames;
+    private List<String> columnNameList;
 
     /**
      * Only useful when limitSize is set.
@@ -33,6 +33,11 @@ public class SelectSql extends Sql {
      */
     private Where where;
 
+    /**
+     * order by
+     */
+    private List<OrderBy> orderByList;
+
     public String getTableName() {
         return tableName;
     }
@@ -41,12 +46,12 @@ public class SelectSql extends Sql {
         this.tableName = tableName;
     }
 
-    public List<String> getColumnNames() {
-        return columnNames;
+    public List<String> getColumnNameList() {
+        return columnNameList;
     }
 
-    public void setColumnNames(List<String> columnNames) {
-        this.columnNames = columnNames;
+    public void setColumnNameList(List<String> columnNameList) {
+        this.columnNameList = columnNameList;
     }
 
     public Integer getLimitFrom() {
@@ -71,5 +76,13 @@ public class SelectSql extends Sql {
 
     public void setWhere(Where where) {
         this.where = where;
+    }
+
+    public List<OrderBy> getOrderByList() {
+        return orderByList;
+    }
+
+    public void setOrderByList(List<OrderBy> orderByList) {
+        this.orderByList = orderByList;
     }
 }

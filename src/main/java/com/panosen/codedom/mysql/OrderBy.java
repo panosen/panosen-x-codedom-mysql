@@ -4,7 +4,7 @@ public class OrderBy {
 
     private String columnName;
 
-    private Boolean asc;
+    private Boolean desc;
 
     public String getColumnName() {
         return columnName;
@@ -14,12 +14,12 @@ public class OrderBy {
         this.columnName = columnName;
     }
 
-    public Boolean getAsc() {
-        return asc;
+    public Boolean getDesc() {
+        return desc;
     }
 
-    public void setAsc(Boolean asc) {
-        this.asc = asc;
+    public void setDesc(Boolean desc) {
+        this.desc = desc;
     }
 }
 

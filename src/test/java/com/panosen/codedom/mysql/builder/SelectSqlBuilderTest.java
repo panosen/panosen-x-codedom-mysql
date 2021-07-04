@@ -18,8 +18,7 @@ public class SelectSqlBuilderTest {
         SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
                 .from("student");
 
-        SelectSqlEngine selectSqlEngine = new SelectSqlEngine();
-        GenerationResponse generationResponse = selectSqlEngine.generate(selectSqlBuilder);
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
         String expected = "select * from `student`;";
 
@@ -33,9 +32,7 @@ public class SelectSqlBuilderTest {
                 .from("student")
                 .limit(10);
 
-        SelectSqlEngine selectSqlEngine = new SelectSqlEngine();
-
-        GenerationResponse generationResponse = selectSqlEngine.generate(selectSqlBuilder);
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
         String expected = "select * from `student` limit 10;";
 
@@ -49,8 +46,7 @@ public class SelectSqlBuilderTest {
                 .from("student")
                 .limit(10, 15);
 
-        SelectSqlEngine selectSqlEngine = new SelectSqlEngine();
-        GenerationResponse generationResponse = selectSqlEngine.generate(selectSqlBuilder);
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
         String expected = "select * from `student` limit 10, 15;";
 
@@ -67,8 +63,7 @@ public class SelectSqlBuilderTest {
         selectSqlBuilder.where()
                 .equal("age", Types.INTEGER, 12);
 
-        SelectSqlEngine selectSqlEngine = new SelectSqlEngine();
-        GenerationResponse generationResponse = selectSqlEngine.generate(selectSqlBuilder);
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
         Parameters parameters = generationResponse.getParameters();
 
@@ -89,8 +84,7 @@ public class SelectSqlBuilderTest {
                 .equal("x", Types.INTEGER, 12)
                 .equal("y", Types.INTEGER, 13);
 
-        SelectSqlEngine selectSqlEngine = new SelectSqlEngine();
-        GenerationResponse generationResponse = selectSqlEngine.generate(selectSqlBuilder);
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
         Parameters parameters = generationResponse.getParameters();
 
@@ -115,8 +109,7 @@ public class SelectSqlBuilderTest {
                 .equal("a", Types.INTEGER, 14)
                 .equal("b", Types.INTEGER, 15);
 
-        SelectSqlEngine selectSqlEngine = new SelectSqlEngine();
-        GenerationResponse generationResponse = selectSqlEngine.generate(selectSqlBuilder);
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
         Parameters parameters = generationResponse.getParameters();
 
@@ -145,8 +138,7 @@ public class SelectSqlBuilderTest {
                 .equal("a", Types.INTEGER, 14)
                 .equal("b", Types.INTEGER, 15);
 
-        SelectSqlEngine selectSqlEngine = new SelectSqlEngine();
-        GenerationResponse generationResponse = selectSqlEngine.generate(selectSqlBuilder);
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
         Parameters parameters = generationResponse.getParameters();
 
@@ -170,8 +162,7 @@ public class SelectSqlBuilderTest {
         selectSqlBuilder.where()
                 .in("age", Types.INTEGER, 12, 13);
 
-        SelectSqlEngine selectSqlEngine = new SelectSqlEngine();
-        GenerationResponse generationResponse = selectSqlEngine.generate(selectSqlBuilder);
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
         Parameters parameters = generationResponse.getParameters();
 
@@ -190,10 +181,24 @@ public class SelectSqlBuilderTest {
                 .columns("name", "age")
                 .from("student");
 
-        SelectSqlEngine selectSqlEngine = new SelectSqlEngine();
-        GenerationResponse generationResponse = selectSqlEngine.generate(selectSqlBuilder);
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
         String expected = "select `name`, `age` from `student`;";
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void build10() {
+
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
+                .from("student")
+                .orderBy("name")
+                .orderBy("age", true);
+
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
+        String actual = generationResponse.getSql();
+        String expected = "select * from `student` order by `name`, `age` desc;";
 
         Assert.assertEquals(expected, actual);
     }

@@ -1,6 +1,7 @@
 package com.panosen.codedom.mysql.builder;
 
 import com.google.common.collect.Lists;
+import com.panosen.codedom.mysql.OrderBy;
 import com.panosen.codedom.mysql.SelectSql;
 import com.panosen.codedom.mysql.Where;
 
@@ -13,18 +14,18 @@ public class SelectSqlBuilder {
     }
 
     public SelectSqlBuilder column(String column) {
-        if (selectSql.getColumnNames() == null) {
-            selectSql.setColumnNames(Lists.newArrayList());
+        if (selectSql.getColumnNameList() == null) {
+            selectSql.setColumnNameList(Lists.newArrayList());
         }
-        selectSql.getColumnNames().add(column);
+        selectSql.getColumnNameList().add(column);
         return this;
     }
 
     public SelectSqlBuilder columns(String... columns) {
-        if (selectSql.getColumnNames() == null) {
-            selectSql.setColumnNames(Lists.newArrayList());
+        if (selectSql.getColumnNameList() == null) {
+            selectSql.setColumnNameList(Lists.newArrayList());
         }
-        selectSql.getColumnNames().addAll(Lists.newArrayList(columns));
+        selectSql.getColumnNameList().addAll(Lists.newArrayList(columns));
         return this;
     }
 
@@ -41,6 +42,23 @@ public class SelectSqlBuilder {
     public SelectSqlBuilder limit(Integer limitFrom, Integer limitSize) {
         selectSql.setLimitFrom(limitFrom);
         selectSql.setLimitSize(limitSize);
+        return this;
+    }
+
+    public SelectSqlBuilder orderBy(String columnName) {
+        return orderBy(columnName, false);
+    }
+
+    public SelectSqlBuilder orderBy(String columnName, Boolean desc) {
+        if (selectSql.getOrderByList() == null) {
+            selectSql.setOrderByList(Lists.newArrayList());
+        }
+
+        OrderBy orderBy = new OrderBy();
+        orderBy.setColumnName(columnName);
+        orderBy.setDesc(desc);
+        selectSql.getOrderByList().add(orderBy);
+
         return this;
     }
 

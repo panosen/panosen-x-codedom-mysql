@@ -2,6 +2,7 @@ package com.panosen.codedom.mysql.engine;
 
 import com.panosen.codedom.CodeWriter;
 import com.panosen.codedom.Marks;
+import com.panosen.codedom.mysql.OrderBy;
 import com.panosen.codedom.mysql.Parameters;
 import com.panosen.codedom.mysql.SelectSql;
 import com.panosen.codedom.mysql.builder.SelectSqlBuilder;
@@ -31,9 +32,9 @@ public class SelectSqlEngine {
         codeWriter.write(Keywords.SELECT).write(Marks.WHITESPACE);
 
         // columns
-        if (selectSql.getColumnNames() != null && !selectSql.getColumnNames().isEmpty()) {
-            for (int index = 0, length = selectSql.getColumnNames().size(); index < length; index++) {
-                codeWriter.write(Marks.BACKQUOTE).write(selectSql.getColumnNames().get(index)).write(Marks.BACKQUOTE);
+        if (selectSql.getColumnNameList() != null && !selectSql.getColumnNameList().isEmpty()) {
+            for (int index = 0, length = selectSql.getColumnNameList().size(); index < length; index++) {
+                codeWriter.write(Marks.BACKQUOTE).write(selectSql.getColumnNameList().get(index)).write(Marks.BACKQUOTE);
                 if (index < length - 1) {
                     codeWriter.write(Marks.COMMA).write(Marks.WHITESPACE);
                 }
@@ -51,6 +52,21 @@ public class SelectSqlEngine {
         if (selectSql.getWhere() != null) {
             codeWriter.write(Marks.WHITESPACE);
             new WhereEngine().generate(selectSql.getWhere(), codeWriter, parameters);
+        }
+
+        if (selectSql.getOrderByList() != null && !selectSql.getOrderByList().isEmpty()) {
+            codeWriter.write(Marks.WHITESPACE).write(Keywords.ORDER_BY);
+            for (int index = 0, length = selectSql.getOrderByList().size(); index < length; index++) {
+                codeWriter.write(Marks.WHITESPACE);
+                OrderBy orderBy = selectSql.getOrderByList().get(index);
+                codeWriter.write(Marks.BACKQUOTE).write(orderBy.getColumnName()).write(Marks.BACKQUOTE);
+                if (orderBy.getDesc() != null && orderBy.getDesc()) {
+                    codeWriter.write(Marks.WHITESPACE).write(Keywords.DESC);
+                }
+                if (index < length - 1) {
+                    codeWriter.write(Marks.COMMA);
+                }
+            }
         }
 
         // limit
