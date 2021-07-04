@@ -8,6 +8,7 @@ import com.panosen.codedom.mysql.SelectSql;
 import com.panosen.codedom.mysql.builder.SelectSqlBuilder;
 
 import java.io.StringWriter;
+import java.util.List;
 
 public class SelectSqlEngine {
 
@@ -54,20 +55,9 @@ public class SelectSqlEngine {
             new WhereEngine().generate(selectSql.getWhere(), codeWriter, parameters);
         }
 
-        if (selectSql.getOrderByList() != null && !selectSql.getOrderByList().isEmpty()) {
-            codeWriter.write(Marks.WHITESPACE).write(Keywords.ORDER_BY);
-            for (int index = 0, length = selectSql.getOrderByList().size(); index < length; index++) {
-                codeWriter.write(Marks.WHITESPACE);
-                OrderBy orderBy = selectSql.getOrderByList().get(index);
-                codeWriter.write(Marks.BACKQUOTE).write(orderBy.getColumnName()).write(Marks.BACKQUOTE);
-                if (orderBy.getDesc() != null && orderBy.getDesc()) {
-                    codeWriter.write(Marks.WHITESPACE).write(Keywords.DESC);
-                }
-                if (index < length - 1) {
-                    codeWriter.write(Marks.COMMA);
-                }
-            }
-        }
+        generateOrderBy(selectSql.getOrderByList(), codeWriter);
+
+        generateGroupBy(selectSql.getGroupByList(), codeWriter);
 
         // limit
         if (selectSql.getLimitSize() != null && selectSql.getLimitSize() > 0) {
@@ -82,5 +72,38 @@ public class SelectSqlEngine {
 
         // ;
         codeWriter.write(Marks.SEMICOLON);
+    }
+
+    private void generateOrderBy(List<OrderBy> orderByList, CodeWriter codeWriter) {
+        if (orderByList == null || orderByList.isEmpty()) {
+            return;
+        }
+        codeWriter.write(Marks.WHITESPACE).write(Keywords.ORDER_BY);
+        for (int index = 0, length = orderByList.size(); index < length; index++) {
+            codeWriter.write(Marks.WHITESPACE);
+            OrderBy orderBy = orderByList.get(index);
+            codeWriter.write(Marks.BACKQUOTE).write(orderBy.getColumnName()).write(Marks.BACKQUOTE);
+            if (orderBy.getDesc() != null && orderBy.getDesc()) {
+                codeWriter.write(Marks.WHITESPACE).write(Keywords.DESC);
+            }
+            if (index < length - 1) {
+                codeWriter.write(Marks.COMMA);
+            }
+        }
+    }
+
+    private void generateGroupBy(List<String> orderByList, CodeWriter codeWriter) {
+        if (orderByList == null || orderByList.isEmpty()) {
+            return;
+        }
+        codeWriter.write(Marks.WHITESPACE).write(Keywords.GROUP_BY);
+        for (int index = 0, length = orderByList.size(); index < length; index++) {
+            codeWriter.write(Marks.WHITESPACE);
+            String groupBy = orderByList.get(index);
+            codeWriter.write(Marks.BACKQUOTE).write(groupBy).write(Marks.BACKQUOTE);
+            if (index < length - 1) {
+                codeWriter.write(Marks.COMMA);
+            }
+        }
     }
 }

@@ -202,4 +202,19 @@ public class SelectSqlBuilderTest {
 
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void build11() {
+
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
+                .from("student")
+                .groupBy("name")
+                .groupBy("age");
+
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
+        String actual = generationResponse.getSql();
+        String expected = "select * from `student` group by `name`, `age`;";
+
+        Assert.assertEquals(expected, actual);
+    }
 }

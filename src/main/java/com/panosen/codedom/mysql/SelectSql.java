@@ -38,6 +38,11 @@ public class SelectSql extends Sql {
      */
     private List<OrderBy> orderByList;
 
+    /**
+     * select * from table group by ${groupByList}
+     */
+    private List<String> groupByList;
+
     public String getTableName() {
         return tableName;
     }
@@ -84,5 +89,13 @@ public class SelectSql extends Sql {
 
     public void setOrderByList(List<OrderBy> orderByList) {
         this.orderByList = orderByList;
+    }
+
+    public List<String> getGroupByList() {
+        return groupByList;
+    }
+
+    public void setGroupByList(List<String> groupByList) {
+        this.groupByList = groupByList;
     }
 }
