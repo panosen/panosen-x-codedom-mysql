@@ -5,7 +5,7 @@ import com.panosen.codedom.mysql.builder.ConditionBuilders;
 
 import java.util.List;
 
-public abstract class Conditions<TConditions extends  Conditions<?>> extends Condition {
+public abstract class Conditions<TConditions extends Conditions<?>> extends Condition {
 
     private List<Condition> conditionList;
 
@@ -15,17 +15,6 @@ public abstract class Conditions<TConditions extends  Conditions<?>> extends Con
 
     public void setConditionList(List<Condition> conditionList) {
         this.conditionList = conditionList;
-    }
-
-
-    protected <TCondition extends Condition> TCondition addCondition(Class<TCondition> clazz)
-            throws IllegalAccessException, InstantiationException {
-        if (this.conditionList == null) {
-            this.conditionList = Lists.newArrayList();
-        }
-        TCondition condition = clazz.newInstance();
-        this.conditionList.add(condition);
-        return condition;
     }
 
     public void addCondition(Condition condition) {
@@ -51,20 +40,55 @@ public abstract class Conditions<TConditions extends  Conditions<?>> extends Con
     public TConditions equal(String fieldName, int dbType, Object value) {
         EqualCondition equalCondition = ConditionBuilders.equalCondition(fieldName, dbType, value);
         addCondition(equalCondition);
-        return (TConditions)this;
+        return (TConditions) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public TConditions notEqual(String fieldName, int dbType, Object value) {
+        NotEqualCondition equalCondition = ConditionBuilders.notEqualCondition(fieldName, dbType, value);
+        addCondition(equalCondition);
+        return (TConditions) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public TConditions gt(String fieldName, int dbType, Object value) {
+        GtCondition gtCondition = ConditionBuilders.gtCondition(fieldName, dbType, value);
+        addCondition(gtCondition);
+        return (TConditions) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public TConditions gte(String fieldName, int dbType, Object value) {
+        GteCondition gteCondition = ConditionBuilders.gteCondition(fieldName, dbType, value);
+        addCondition(gteCondition);
+        return (TConditions) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public TConditions lt(String fieldName, int dbType, Object value) {
+        LtCondition ltCondition = ConditionBuilders.ltCondition(fieldName, dbType, value);
+        addCondition(ltCondition);
+        return (TConditions) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public TConditions lte(String fieldName, int dbType, Object value) {
+        LteCondition lteCondition = ConditionBuilders.lteCondition(fieldName, dbType, value);
+        addCondition(lteCondition);
+        return (TConditions) this;
     }
 
     @SuppressWarnings("unchecked")
     public TConditions in(String fieldName, int dbType, List<Object> values) {
         InCondition inCondition = ConditionBuilders.inCondition(fieldName, dbType, values);
         addCondition(inCondition);
-        return (TConditions)this;
+        return (TConditions) this;
     }
 
     @SuppressWarnings("unchecked")
     public TConditions in(String fieldName, int dbType, Object... values) {
         InCondition inCondition = ConditionBuilders.inCondition(fieldName, dbType, values);
         addCondition(inCondition);
-        return (TConditions)this;
+        return (TConditions) this;
     }
 }

@@ -1,41 +1,48 @@
 package com.panosen.codedom.mysql.builder;
 
-import com.panosen.codedom.CodeWriter;
-import com.panosen.codedom.mysql.*;
+import com.panosen.codedom.mysql.Parameters;
 import com.panosen.codedom.mysql.engine.GenerationResponse;
 import com.panosen.codedom.mysql.engine.SelectSqlEngine;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.StringWriter;
 import java.sql.Types;
 
-public class SelectSqlBuilderTest {
+public class SelectSqlBuilderGroupByTest {
 
     @Test
-    public void build1() {
+    public void simple() {
 
         SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
                 .from("student");
 
+        selectSqlBuilder.groupBy().columns("name", "age");
+
         GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
-        String expected = "select * from `student`;";
+        String expected = "select * from `student` group by `name`, `age`;";
 
         Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void build2() {
+    public void having() {
 
         SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .columns("name", "age")
                 .from("student");
+
+        selectSqlBuilder
+                .groupBy().columns("name", "age")
+                .having().equal("a", Types.INTEGER, 14);
 
         GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
-        String expected = "select `name`, `age` from `student`;";
+        Parameters parameters = generationResponse.getParameters();
+        String expected = "select * from `student` group by `name`, `age` having `a` = ?;";
 
         Assert.assertEquals(expected, actual);
+        Assert.assertEquals(1, parameters.size());
+        Assert.assertEquals(14, parameters.get(0).getValue());
     }
+
 }

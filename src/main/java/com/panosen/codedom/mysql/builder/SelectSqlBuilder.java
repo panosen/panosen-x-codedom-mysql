@@ -63,14 +63,10 @@ public class SelectSqlBuilder {
         return this;
     }
 
-    public SelectSqlBuilder groupBy(String columnName) {
-        if (selectSql.getGroupBy() == null) {
-            GroupBy groupBy = new GroupBy();
-            groupBy.setColumnNames(Lists.newArrayList());
-            selectSql.setGroupBy(groupBy);
-        }
-        selectSql.getGroupBy().getColumnNames().add(columnName);
-        return this;
+    public GroupByBuilder groupBy() {
+        GroupBy groupBy = new GroupBy();
+        selectSql.setGroupBy(groupBy);
+        return new GroupByBuilder(groupBy);
     }
 
     public WhereBuilder where() {

@@ -85,5 +85,8 @@ public class Keywords {
      */
     public static final String IN = "in";
 
-
+    /**
+     * set
+     */
+    public static final String SET = "set";
 }
