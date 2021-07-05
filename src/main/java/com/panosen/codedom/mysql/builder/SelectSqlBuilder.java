@@ -1,6 +1,7 @@
 package com.panosen.codedom.mysql.builder;
 
 import com.google.common.collect.Lists;
+import com.panosen.codedom.mysql.GroupBy;
 import com.panosen.codedom.mysql.OrderBy;
 import com.panosen.codedom.mysql.SelectSql;
 import com.panosen.codedom.mysql.Where;
@@ -63,10 +64,12 @@ public class SelectSqlBuilder {
     }
 
     public SelectSqlBuilder groupBy(String columnName) {
-        if (selectSql.getGroupByList() == null) {
-            selectSql.setGroupByList(Lists.newArrayList());
+        if (selectSql.getGroupBy() == null) {
+            GroupBy groupBy = new GroupBy();
+            groupBy.setColumnNames(Lists.newArrayList());
+            selectSql.setGroupBy(groupBy);
         }
-        selectSql.getGroupByList().add(columnName);
+        selectSql.getGroupBy().getColumnNames().add(columnName);
         return this;
     }
 

@@ -39,9 +39,9 @@ public class SelectSql extends Sql {
     private List<OrderBy> orderByList;
 
     /**
-     * select * from table group by ${groupByList}
+     * group by
      */
-    private List<String> groupByList;
+    private GroupBy groupBy;
 
     public String getTableName() {
         return tableName;
@@ -91,11 +91,11 @@ public class SelectSql extends Sql {
         this.orderByList = orderByList;
     }
 
-    public List<String> getGroupByList() {
-        return groupByList;
+    public GroupBy getGroupBy() {
+        return groupBy;
     }
 
-    public void setGroupByList(List<String> groupByList) {
-        this.groupByList = groupByList;
+    public void setGroupBy(GroupBy groupBy) {
+        this.groupBy = groupBy;
     }
 }

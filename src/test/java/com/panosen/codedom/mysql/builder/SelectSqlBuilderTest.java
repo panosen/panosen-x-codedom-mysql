@@ -1,13 +1,13 @@
 package com.panosen.codedom.mysql.builder;
 
-import com.panosen.codedom.mysql.MustConditions;
-import com.panosen.codedom.mysql.Parameters;
-import com.panosen.codedom.mysql.ShouldConditions;
+import com.panosen.codedom.CodeWriter;
+import com.panosen.codedom.mysql.*;
 import com.panosen.codedom.mysql.engine.GenerationResponse;
 import com.panosen.codedom.mysql.engine.SelectSqlEngine;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.StringWriter;
 import java.sql.Types;
 
 public class SelectSqlBuilderTest {
@@ -214,6 +214,31 @@ public class SelectSqlBuilderTest {
         GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
         String expected = "select * from `student` group by `name`, `age`;";
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void build12() {
+
+        Where where = new Where();
+        {
+            EqualCondition equalCondition = new EqualCondition();
+            equalCondition.setFieldName("a");
+            equalCondition.setDbType(Types.INTEGER);
+            equalCondition.setValue(1);
+            where.setCondition(equalCondition);
+        }
+
+        StringWriter stringWriter = new StringWriter();
+        CodeWriter codeWriter = new CodeWriter(stringWriter);
+
+        Parameters parameters = new Parameters();
+
+        new SelectSqlEngine().generateCondition(where.getCondition(), codeWriter, parameters, false);
+
+        String actual = stringWriter.toString();
+        String expected = "`a` = ?";
 
         Assert.assertEquals(expected, actual);
     }
