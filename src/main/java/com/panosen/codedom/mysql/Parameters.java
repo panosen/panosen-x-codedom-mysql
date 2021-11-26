@@ -33,4 +33,24 @@ public class Parameters implements Iterable<Parameter> {
     public Iterator<Parameter> iterator() {
         return parameters.iterator();
     }
+
+    public int[] getDbTypes() {
+        int[] dbTypes = new int[parameters.size()];
+        for (int index = 0, length = parameters.size(); index < length; index++) {
+            dbTypes[index] = parameters.get(index).getDbType();
+        }
+        return dbTypes;
+    }
+
+    public Object[] getValues() {
+        Object[] values = new Object[parameters.size()];
+        for (int index = 0, length = parameters.size(); index < length; index++) {
+            values[index] = parameters.get(index).getValue();
+        }
+        return values;
+    }
+
+    public List<Parameter> getParameters() {
+        return parameters;
+    }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class SqlEngine {
 
-    public void generateWhere(Where where, CodeWriter codeWriter, Parameters parameters) {
+    protected void generateWhere(Where where, CodeWriter codeWriter, Parameters parameters) {
         if (where == null || where.getCondition() == null) {
             return;
         }
@@ -19,7 +19,7 @@ public abstract class SqlEngine {
         generateCondition(where.getCondition(), codeWriter, parameters, false);
     }
 
-    public void generateCondition(Condition condition, CodeWriter codeWriter, Parameters parameters, boolean parenthesis) {
+    protected void generateCondition(Condition condition, CodeWriter codeWriter, Parameters parameters, boolean parenthesis) {
         if (condition == null) {
             return;
         }
@@ -118,13 +118,13 @@ public abstract class SqlEngine {
         generateSimpleCondition(lteCondition, codeWriter, parameters, Marks.LESS_EQUAL_THAN);
     }
 
-    private void generateSimpleCondition(SimpleCondition equalCondition, CodeWriter codeWriter, Parameters parameters, String mathOperator) {
-        codeWriter.write(Marks.BACKQUOTE).write(equalCondition.getFieldName()).write(Marks.BACKQUOTE)
+    private void generateSimpleCondition(SimpleCondition simpleCondition, CodeWriter codeWriter, Parameters parameters, String mathOperator) {
+        codeWriter.write(Marks.BACKQUOTE).write(simpleCondition.getFieldName()).write(Marks.BACKQUOTE)
                 .write(Marks.WHITESPACE)
                 .write(mathOperator)
                 .write(Marks.WHITESPACE)
                 .write(Marks.QUESTION);
-        parameters.add(equalCondition.getDbType(), equalCondition.getValue());
+        parameters.add(simpleCondition.getDbType(), simpleCondition.getValue());
     }
 
     private void generateInCondition(InCondition inCondition, CodeWriter codeWriter, Parameters parameters) {

@@ -7,7 +7,6 @@ import com.panosen.codedom.mysql.Statement;
 import com.panosen.codedom.mysql.Statements;
 import com.panosen.codedom.mysql.UpdateSql;
 import com.panosen.codedom.mysql.builder.UpdateSqlBuilder;
-import sun.security.util.Length;
 
 import java.io.StringWriter;
 
