@@ -89,4 +89,14 @@ public class Keywords {
      * set
      */
     public static final String SET = "set";
+
+    /**
+     * into
+     */
+    public static final String INTO = "into";
+
+    /**
+     * values
+     */
+    public static final String VALUES = "values";
 }

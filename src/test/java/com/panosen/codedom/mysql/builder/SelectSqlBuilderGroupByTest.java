@@ -35,12 +35,14 @@ public class SelectSqlBuilderGroupByTest {
                 .groupBy().columns("name", "age")
                 .having().equal("a", Types.INTEGER, 14);
 
-        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
-        String actual = generationResponse.getSql();
-        Parameters parameters = generationResponse.getParameters();
-        String expected = "select * from `student` group by `name`, `age` having `a` = ?;";
+        GenerationResponse response = new SelectSqlEngine().generate(selectSqlBuilder);
 
+        String actual = response.getSql();
+        String expected = "select * from `student` group by `name`, `age` having `a` = ?;";
         Assert.assertEquals(expected, actual);
+
+        Parameters parameters = response.getParameters();
+
         Assert.assertEquals(1, parameters.size());
         Assert.assertEquals(14, parameters.get(0).getValue());
     }

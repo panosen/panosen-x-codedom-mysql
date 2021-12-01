@@ -1,14 +1,9 @@
 package com.panosen.codedom.mysql.builder;
 
-import com.panosen.codedom.CodeWriter;
-import com.panosen.codedom.mysql.*;
 import com.panosen.codedom.mysql.engine.GenerationResponse;
 import com.panosen.codedom.mysql.engine.SelectSqlEngine;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.io.StringWriter;
-import java.sql.Types;
 
 public class SelectSqlBuilderTest {
 
