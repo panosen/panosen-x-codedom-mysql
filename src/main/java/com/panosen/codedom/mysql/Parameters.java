@@ -22,6 +22,7 @@ public class Parameters implements Iterable<Parameter> {
 
     public Parameters add(int dbType, Object value) {
         Parameter parameter = new Parameter();
+        parameter.setIndex(parameters.size() + 1);
         parameter.setDbType(dbType);
         parameter.setValue(value);
         this.parameters.add(parameter);
