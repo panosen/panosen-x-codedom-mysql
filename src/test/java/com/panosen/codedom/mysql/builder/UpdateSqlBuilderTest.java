@@ -13,7 +13,7 @@ public class UpdateSqlBuilderTest {
     @Test
     public void test2() {
         UpdateSqlBuilder updateSqlBuilder = new UpdateSqlBuilder()
-                .from("student");
+                .table("student");
 
         updateSqlBuilder.set()
                 .set("age", Types.INTEGER, 17)
@@ -27,7 +27,9 @@ public class UpdateSqlBuilderTest {
         String expected = "update `student` set `age` = ?, `value` = ? where `id` = ?;";
 
         Assert.assertEquals(expected, actual);
-        Assert.assertEquals(1, parameters.size());
-        Assert.assertEquals(13, parameters.get(0).getValue());
+        Assert.assertEquals(3, parameters.size());
+        Assert.assertEquals(17, parameters.get(0).getValue());
+        Assert.assertEquals(19, parameters.get(1).getValue());
+        Assert.assertEquals(13, parameters.get(2).getValue());
     }
 }

@@ -60,6 +60,9 @@ public class UpdateSqlEngine extends SqlEngine {
                     .write(Marks.WHITESPACE)
                     .write(Marks.BACKQUOTE).write(statement.getFieldName()).write(Marks.BACKQUOTE)
                     .write(Marks.WHITESPACE).write(Marks.EQUAL).write(Marks.WHITESPACE).write(Marks.QUESTION);
+
+            parameters.add(statement.getFieldType(), statement.getValue());
+
             if (i < length - 1) {
                 codeWriter.write(Marks.COMMA);
             }

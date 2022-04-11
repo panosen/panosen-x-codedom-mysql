@@ -12,7 +12,7 @@ public class UpdateSqlBuilder {
         return updateSql;
     }
 
-    public UpdateSqlBuilder from(String tableName) {
+    public UpdateSqlBuilder table(String tableName) {
         updateSql.setTableName(tableName);
         return this;
     }

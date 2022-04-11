@@ -36,6 +36,7 @@ public class SelectSqlBuilder {
     }
 
     public SelectSqlBuilder limit(Integer limitSize) {
+        selectSql.setLimitFrom(null);
         selectSql.setLimitSize(limitSize);
         return this;
     }
