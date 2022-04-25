@@ -31,6 +31,11 @@ public class SelectSqlBuilder {
     }
 
     public SelectSqlBuilder from(String tableName) {
+        return from(tableName, null);
+    }
+
+    public SelectSqlBuilder from(String tableName, String tableSchema) {
+        selectSql.setTableSchema(tableSchema);
         selectSql.setTableName(tableName);
         return this;
     }

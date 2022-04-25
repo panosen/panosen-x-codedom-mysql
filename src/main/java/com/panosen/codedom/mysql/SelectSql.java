@@ -8,6 +8,11 @@ import java.util.List;
 public class SelectSql extends Sql {
 
     /**
+     * select * from ${tableSchema}.tableName;
+     */
+    private String tableSchema;
+
+    /**
      * select * from ${tableName};
      */
     private String tableName;
@@ -42,6 +47,14 @@ public class SelectSql extends Sql {
      * group by
      */
     private GroupBy groupBy;
+
+    public String getTableSchema() {
+        return tableSchema;
+    }
+
+    public void setTableSchema(String tableSchema) {
+        this.tableSchema = tableSchema;
+    }
 
     public String getTableName() {
         return tableName;

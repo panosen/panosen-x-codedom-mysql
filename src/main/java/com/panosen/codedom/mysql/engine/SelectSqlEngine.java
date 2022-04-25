@@ -1,5 +1,6 @@
 package com.panosen.codedom.mysql.engine;
 
+import com.google.common.base.Strings;
 import com.panosen.codedom.CodeWriter;
 import com.panosen.codedom.Marks;
 import com.panosen.codedom.mysql.*;
@@ -44,6 +45,12 @@ public class SelectSqlEngine extends SqlEngine {
 
         // from
         codeWriter.write(Marks.WHITESPACE).write(Keywords.FROM).write(Marks.WHITESPACE);
+
+        //tableSchema
+        if (!Strings.isNullOrEmpty(selectSql.getTableSchema())) {
+            codeWriter.write(Marks.BACKQUOTE).write(selectSql.getTableSchema()).write(Marks.BACKQUOTE);
+            codeWriter.write(Marks.DOT);
+        }
 
         // tableName
         codeWriter.write(Marks.BACKQUOTE).write(selectSql.getTableName()).write(Marks.BACKQUOTE);

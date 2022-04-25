@@ -21,6 +21,19 @@ public class SelectSqlBuilderTest {
     }
 
     @Test
+    public void build3() {
+
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
+                .from("table","information_schema");
+
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
+        String actual = generationResponse.getSql();
+        String expected = "select * from `information_schema`.`table`;";
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
     public void build2() {
 
         SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
