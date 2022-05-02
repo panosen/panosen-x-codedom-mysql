@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Parameters implements Iterable<Parameter> {
 
-    private List<Parameter> parameters = new LinkedList<>();
+    private final List<Parameter> parameters = new LinkedList<>();
 
     public boolean isEmpty() {
         return parameters.isEmpty();

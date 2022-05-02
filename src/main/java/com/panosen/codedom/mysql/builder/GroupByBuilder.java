@@ -6,7 +6,7 @@ import com.panosen.codedom.mysql.Having;
 
 public class GroupByBuilder {
 
-    private GroupBy groupBy;
+    private final GroupBy groupBy;
 
     public GroupBy getGroupBy() {
         return groupBy;

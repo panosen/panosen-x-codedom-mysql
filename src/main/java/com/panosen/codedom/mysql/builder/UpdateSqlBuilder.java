@@ -26,7 +26,6 @@ public class UpdateSqlBuilder {
     public StatementsBuilder set() {
         Statements statements = new Statements();
         updateSql.setStatements(statements);
-        StatementsBuilder statementsBuilder = new StatementsBuilder(statements);
-        return statementsBuilder;
+        return new StatementsBuilder(statements);
     }
 }

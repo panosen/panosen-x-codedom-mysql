@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class ConditionStatementBuilder {
 
-    private ConditionStatement conditionStatement;
+    private final ConditionStatement conditionStatement;
 
     public ConditionStatementBuilder(ConditionStatement conditionStatement) {
         this.conditionStatement = conditionStatement;
