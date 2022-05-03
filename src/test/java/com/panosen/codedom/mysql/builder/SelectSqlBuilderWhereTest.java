@@ -1,5 +1,6 @@
 package com.panosen.codedom.mysql.builder;
 
+import com.google.common.collect.Lists;
 import com.panosen.codedom.mysql.MustConditions;
 import com.panosen.codedom.mysql.Parameters;
 import com.panosen.codedom.mysql.ShouldConditions;
@@ -9,26 +10,29 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.Types;
+import java.util.List;
 
-public class SelectSqlBuilderWhereTest {   @Test
-public void build4() {
+public class SelectSqlBuilderWhereTest {
 
-    SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-            .from("student")
-            .limit(10, 15);
+    @Test
+    public void build4() {
 
-    selectSqlBuilder.where()
-            .equal("age", Types.INTEGER, 12);
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
+                .from("student")
+                .limit(10, 15);
 
-    GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
-    String actual = generationResponse.getSql();
-    Parameters parameters = generationResponse.getParameters();
+        selectSqlBuilder.where()
+                .equal("age", Types.INTEGER, 12);
 
-    String expected = "select * from `student` where `age` = ? limit 10, 15;";
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
+        String actual = generationResponse.getSql();
+        Parameters parameters = generationResponse.getParameters();
 
-    Assert.assertEquals(expected, actual);
-    Assert.assertEquals(1, parameters.size());
-}
+        String expected = "select * from `student` where `age` = ? limit 10, 15;";
+
+        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(1, parameters.size());
+    }
 
     @Test
     public void build5() {
@@ -129,5 +133,73 @@ public void build4() {
         Assert.assertEquals(2, parameters.size());
         Assert.assertEquals(12, parameters.get(0).getValue());
         Assert.assertEquals(13, parameters.get(1).getValue());
+    }
+
+    @Test
+    public void build9() {
+
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
+                .from("student")
+                .limit(10, 15);
+
+        selectSqlBuilder.where()
+                .in("age", Types.INTEGER, Lists.newArrayList(12, 13));
+
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
+        String actual = generationResponse.getSql();
+        Parameters parameters = generationResponse.getParameters();
+
+        String expected = "select * from `student` where `age` in (?, ?) limit 10, 15;";
+
+        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(2, parameters.size());
+        Assert.assertEquals(12, parameters.get(0).getValue());
+        Assert.assertEquals(13, parameters.get(1).getValue());
+    }
+
+    @Test
+    public void build10() {
+
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
+                .from("student")
+                .limit(10, 15);
+
+        selectSqlBuilder.where()
+                .in("age", Types.INTEGER, Lists.newArrayList("A", "B"));
+
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
+        String actual = generationResponse.getSql();
+        Parameters parameters = generationResponse.getParameters();
+
+        String expected = "select * from `student` where `age` in (?, ?) limit 10, 15;";
+
+        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(2, parameters.size());
+        Assert.assertEquals("A", parameters.get(0).getValue());
+        Assert.assertEquals("B", parameters.get(1).getValue());
+    }
+
+    @Test
+    public void build11() {
+
+        List<String> names = Lists.newArrayList("A", "B");
+
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
+                .from("student")
+                .limit(10, 15);
+
+        selectSqlBuilder.where()
+                .in("name", Types.VARCHAR, names);
+
+        GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
+        String actual = generationResponse.getSql();
+        Parameters parameters = generationResponse.getParameters();
+
+        String expected = "select * from `student` where `name` in (?, ?) limit 10, 15;";
+
+        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(2, parameters.size());
+        Assert.assertEquals("A", parameters.get(0).getValue());
+        Assert.assertEquals("B", parameters.get(1).getValue());
     }
 }

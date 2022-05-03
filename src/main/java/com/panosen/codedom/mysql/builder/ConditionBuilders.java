@@ -55,11 +55,11 @@ public class ConditionBuilders {
         return lteCondition;
     }
 
-    public static InCondition inCondition(String fieldName, int dbType, List<Object> values) {
+    public static InCondition inCondition(String fieldName, int dbType, Iterable<? extends Object>  values) {
         InCondition inCondition = new InCondition();
         inCondition.setFieldName(fieldName);
         inCondition.setDbType(dbType);
-        inCondition.setValues(values);
+        inCondition.setValues(Lists.newArrayList(values));
         return inCondition;
     }
 

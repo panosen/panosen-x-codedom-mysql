@@ -79,7 +79,7 @@ public abstract class Conditions<TConditions extends Conditions<?>> extends Cond
     }
 
     @SuppressWarnings("unchecked")
-    public TConditions in(String fieldName, int dbType, List<Object> values) {
+    public <E> TConditions in(String fieldName, int dbType, Iterable<? extends Object> values) {
         InCondition inCondition = ConditionBuilders.inCondition(fieldName, dbType, values);
         addCondition(inCondition);
         return (TConditions) this;

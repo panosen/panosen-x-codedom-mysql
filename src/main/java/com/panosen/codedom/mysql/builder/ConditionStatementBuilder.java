@@ -45,7 +45,7 @@ public abstract class ConditionStatementBuilder {
         conditionStatement.setCondition(ConditionBuilders.lteCondition(fieldName, dbType, value));
     }
 
-    public void in(String fieldName, int dbType, List<Object> values) {
+    public <E> void in(String fieldName, int dbType, Iterable<? extends E> values) {
         InCondition inCondition = ConditionBuilders.inCondition(fieldName, dbType, values);
         conditionStatement.setCondition(inCondition);
     }
