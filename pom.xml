@@ -52,7 +52,7 @@
         <dependency>
             <groupId>com.panosen</groupId>
             <artifactId>panosen-codedom</artifactId>
-            <version>1.4.0</version>
+            <version>1.4.2</version>
         </dependency>
 
     </dependencies>
