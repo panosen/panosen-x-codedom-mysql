@@ -16,13 +16,13 @@
 
     <name>Panosen CodeDom</name>
     <packaging>jar</packaging>
-    <url>https://github.com/panosen/panosen-x-codedom</url>
+    <url>https://github.com/panosen/panosen-x-codedom-mysql</url>
     <description>Panosen Code Generation of Mysql.</description>
 
     <licenses>
         <license>
             <name>MIT</name>
-            <url>https://github.com/panosen/panosen-x-codedom/blob/master/LICENSE</url>
+            <url>https://github.com/panosen/panosen-x-codedom-mysql/blob/master/LICENSE</url>
         </license>
     </licenses>
 
