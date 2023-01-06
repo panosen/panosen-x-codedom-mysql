@@ -1,10 +1,8 @@
 package com.panosen.codedom.mysql.builder;
 
 import com.google.common.collect.Lists;
-import com.panosen.codedom.mysql.GroupBy;
 import com.panosen.codedom.mysql.OrderBy;
 import com.panosen.codedom.mysql.SelectSql;
-import com.panosen.codedom.mysql.Where;
 
 public class SelectSqlBuilder {
 
@@ -70,14 +68,14 @@ public class SelectSqlBuilder {
     }
 
     public GroupByBuilder groupBy() {
-        GroupBy groupBy = new GroupBy();
-        selectSql.setGroupBy(groupBy);
-        return new GroupByBuilder(groupBy);
+        GroupByBuilder groupByBuilder = new GroupByBuilder();
+        selectSql.setGroupBy(groupByBuilder.getGroupBy());
+        return groupByBuilder;
     }
 
-    public WhereBuilder where() {
-        Where where = new Where();
-        selectSql.setWhere(where);
-        return new WhereBuilder(where);
+    public ConditionsBuilder where() {
+        ConditionsBuilder conditionsBuilder = new ConditionsBuilder();
+        selectSql.setWhere(conditionsBuilder.getConditionStatement());
+        return conditionsBuilder;
     }
 }

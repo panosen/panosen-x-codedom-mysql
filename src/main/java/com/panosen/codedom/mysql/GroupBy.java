@@ -12,7 +12,7 @@ public class GroupBy {
     /**
      * having
      */
-    private Having having;
+    private ConditionStatement having;
 
     public List<String> getColumnNames() {
         return columnNames;
@@ -22,11 +22,11 @@ public class GroupBy {
         this.columnNames = columnNames;
     }
 
-    public Having getHaving() {
+    public ConditionStatement getHaving() {
         return having;
     }
 
-    public void setHaving(Having having) {
+    public void setHaving(ConditionStatement having) {
         this.having = having;
     }
 }

@@ -1,6 +1,6 @@
 package com.panosen.codedom.mysql;
 
-public abstract class ConditionStatement {
+public class ConditionStatement {
 
     private Condition condition;
 

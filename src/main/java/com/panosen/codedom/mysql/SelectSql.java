@@ -36,7 +36,7 @@ public class SelectSql extends Sql {
     /**
      * where
      */
-    private Where where;
+    private ConditionStatement where;
 
     /**
      * order by
@@ -88,11 +88,11 @@ public class SelectSql extends Sql {
         this.limitSize = limitSize;
     }
 
-    public Where getWhere() {
+    public ConditionStatement getWhere() {
         return where;
     }
 
-    public void setWhere(Where where) {
+    public void setWhere(ConditionStatement where) {
         this.where = where;
     }
 

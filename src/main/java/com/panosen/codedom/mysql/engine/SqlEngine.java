@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class SqlEngine {
 
-    protected void generateWhere(Where where, CodeWriter codeWriter, Parameters parameters) {
+    protected void generateWhere(ConditionStatement where, CodeWriter codeWriter, Parameters parameters) {
         if (where == null || where.getCondition() == null) {
             return;
         }

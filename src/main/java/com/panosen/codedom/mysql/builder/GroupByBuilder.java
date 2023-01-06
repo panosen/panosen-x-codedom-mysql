@@ -2,18 +2,13 @@ package com.panosen.codedom.mysql.builder;
 
 import com.google.common.collect.Lists;
 import com.panosen.codedom.mysql.GroupBy;
-import com.panosen.codedom.mysql.Having;
 
 public class GroupByBuilder {
 
-    private final GroupBy groupBy;
+    private final GroupBy groupBy = new GroupBy();
 
     public GroupBy getGroupBy() {
         return groupBy;
-    }
-
-    public GroupByBuilder(GroupBy groupBy) {
-        this.groupBy = groupBy;
     }
 
     public GroupByBuilder column(String column) {
@@ -35,15 +30,9 @@ public class GroupByBuilder {
         return this;
     }
 
-    public GroupByBuilder having(Having having) {
-        groupBy.setHaving(having);
-        return this;
-    }
-
-    public HavingBuilder having() {
-        Having having = new Having();
-        HavingBuilder havingBuilder = new HavingBuilder(having);
-        groupBy.setHaving(having);
-        return havingBuilder;
+    public ConditionsBuilder having() {
+        ConditionsBuilder conditionsBuilder = new ConditionsBuilder();
+        groupBy.setHaving(conditionsBuilder.getConditionStatement());
+        return conditionsBuilder;
     }
 }

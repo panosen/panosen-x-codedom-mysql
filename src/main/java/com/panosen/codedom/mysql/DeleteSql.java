@@ -13,7 +13,7 @@ public class DeleteSql extends Sql {
     /**
      * where
      */
-    private Where where;
+    private ConditionStatement where;
 
     public String getTableName() {
         return tableName;
@@ -23,11 +23,11 @@ public class DeleteSql extends Sql {
         this.tableName = tableName;
     }
 
-    public Where getWhere() {
+    public ConditionStatement getWhere() {
         return where;
     }
 
-    public void setWhere(Where where) {
+    public void setWhere(ConditionStatement where) {
         this.where = where;
     }
 }

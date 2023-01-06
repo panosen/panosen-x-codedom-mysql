@@ -15,7 +15,7 @@ public class UpdateSql extends Sql {
     /**
      * where
      */
-    private Where where;
+    private ConditionStatement where;
 
     public String getTableName() {
         return tableName;
@@ -33,11 +33,11 @@ public class UpdateSql extends Sql {
         this.statements = statements;
     }
 
-    public Where getWhere() {
+    public ConditionStatement getWhere() {
         return where;
     }
 
-    public void setWhere(Where where) {
+    public void setWhere(ConditionStatement where) {
         this.where = where;
     }
 }

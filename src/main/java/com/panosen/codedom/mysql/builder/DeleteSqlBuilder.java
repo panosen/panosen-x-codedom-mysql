@@ -1,7 +1,6 @@
 package com.panosen.codedom.mysql.builder;
 
 import com.panosen.codedom.mysql.DeleteSql;
-import com.panosen.codedom.mysql.Where;
 
 public class DeleteSqlBuilder {
 
@@ -16,9 +15,9 @@ public class DeleteSqlBuilder {
         return this;
     }
 
-    public WhereBuilder where() {
-        Where where = new Where();
-        deleteSql.setWhere(where);
-        return new WhereBuilder(where);
+    public ConditionsBuilder where() {
+        ConditionsBuilder conditionsBuilder = new ConditionsBuilder();
+        deleteSql.setWhere(conditionsBuilder.getConditionStatement());
+        return conditionsBuilder;
     }
 }

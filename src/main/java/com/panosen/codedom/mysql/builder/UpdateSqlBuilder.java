@@ -1,8 +1,6 @@
 package com.panosen.codedom.mysql.builder;
 
-import com.panosen.codedom.mysql.Statements;
 import com.panosen.codedom.mysql.UpdateSql;
-import com.panosen.codedom.mysql.Where;
 
 public class UpdateSqlBuilder {
 
@@ -17,15 +15,15 @@ public class UpdateSqlBuilder {
         return this;
     }
 
-    public WhereBuilder where() {
-        Where where = new Where();
-        updateSql.setWhere(where);
-        return new WhereBuilder(where);
+    public ConditionsBuilder where() {
+        ConditionsBuilder conditionsBuilder = new ConditionsBuilder();
+        updateSql.setWhere(conditionsBuilder.getConditionStatement());
+        return conditionsBuilder;
     }
 
     public StatementsBuilder set() {
-        Statements statements = new Statements();
-        updateSql.setStatements(statements);
-        return new StatementsBuilder(statements);
+        StatementsBuilder statementsBuilder = new StatementsBuilder();
+        updateSql.setStatements(statementsBuilder.getStatements());
+        return statementsBuilder;
     }
 }

@@ -113,7 +113,7 @@ public class SelectSqlEngine extends SqlEngine {
         }
     }
 
-    private void generateHaving(Having having, CodeWriter codeWriter, Parameters parameters) {
+    private void generateHaving(ConditionStatement having, CodeWriter codeWriter, Parameters parameters) {
         codeWriter.write(Marks.WHITESPACE).write(Keywords.HAVING).write(Marks.WHITESPACE);
         generateCondition(having.getCondition(), codeWriter, parameters, false);
     }

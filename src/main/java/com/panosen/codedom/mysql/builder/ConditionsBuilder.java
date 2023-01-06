@@ -2,14 +2,12 @@ package com.panosen.codedom.mysql.builder;
 
 import com.panosen.codedom.mysql.*;
 
-import java.util.List;
+public class ConditionsBuilder {
 
-public abstract class ConditionStatementBuilder {
+    private final ConditionStatement conditionStatement = new ConditionStatement();
 
-    private final ConditionStatement conditionStatement;
-
-    public ConditionStatementBuilder(ConditionStatement conditionStatement) {
-        this.conditionStatement = conditionStatement;
+    public ConditionStatement getConditionStatement() {
+        return conditionStatement;
     }
 
     public MustConditions must() {
