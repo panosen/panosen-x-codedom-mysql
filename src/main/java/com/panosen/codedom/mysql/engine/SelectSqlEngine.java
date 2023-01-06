@@ -58,11 +58,11 @@ public class SelectSqlEngine extends SqlEngine {
         // where
         generateWhere(selectSql.getWhere(), codeWriter, parameters);
 
-        // order by
-        generateOrderBy(selectSql.getOrderByList(), codeWriter);
-
         // group by
         generateGroupBy(selectSql.getGroupBy(), codeWriter, parameters);
+
+        // order by
+        generateOrderBy(selectSql.getOrderByList(), codeWriter);
 
         // limit
         if (selectSql.getLimitSize() != null && selectSql.getLimitSize() > 0) {
