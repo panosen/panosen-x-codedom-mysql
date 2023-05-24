@@ -99,4 +99,9 @@ public class Keywords {
      * values
      */
     public static final String VALUES = "values";
+
+    /**
+     * count
+     */
+    public static final String COUNT = "count";
 }
