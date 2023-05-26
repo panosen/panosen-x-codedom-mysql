@@ -31,18 +31,21 @@ public class SelectSqlEngine extends SqlEngine {
         // select
         codeWriter.write(Keywords.SELECT).write(Marks.WHITESPACE);
 
-        // columns
-        if (selectSql.getColumnNameList() != null && !selectSql.getColumnNameList().isEmpty()) {
-            for (int index = 0, length = selectSql.getColumnNameList().size(); index < length; index++) {
-                codeWriter.write(Marks.BACKQUOTE).write(selectSql.getColumnNameList().get(index)).write(Marks.BACKQUOTE);
-                if (index < length - 1) {
-                    codeWriter.write(Marks.COMMA).write(Marks.WHITESPACE);
-                }
-            }
+        if (selectSql.isUseCount()) {
+            codeWriter.write(Keywords.COUNT).write(Marks.LEFT_BRACKET).write(Marks.STAR).write(Marks.RIGHT_BRACKET);
         } else {
-            codeWriter.write(Marks.STAR);
+            // columns
+            if (selectSql.getColumnNameList() != null && !selectSql.getColumnNameList().isEmpty()) {
+                for (int index = 0, length = selectSql.getColumnNameList().size(); index < length; index++) {
+                    codeWriter.write(Marks.BACKQUOTE).write(selectSql.getColumnNameList().get(index)).write(Marks.BACKQUOTE);
+                    if (index < length - 1) {
+                        codeWriter.write(Marks.COMMA).write(Marks.WHITESPACE);
+                    }
+                }
+            } else {
+                codeWriter.write(Marks.STAR);
+            }
         }
-
         // from
         codeWriter.write(Marks.WHITESPACE).write(Keywords.FROM).write(Marks.WHITESPACE);
 
