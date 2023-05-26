@@ -12,11 +12,6 @@ public class SelectSqlBuilder {
         return selectSql;
     }
 
-    public SelectSqlBuilder count() {
-        selectSql.setUseCount(true);
-        return this;
-    }
-
     public SelectSqlBuilder column(String column) {
         if (selectSql.getColumnNameList() == null) {
             selectSql.setColumnNameList(Lists.newArrayList());

@@ -18,11 +18,6 @@ public class SelectSql extends Sql {
     private String tableName;
 
     /**
-     * select count(*) from ${tableName}
-     */
-    private boolean useCount;
-
-    /**
      * select ${columnNameList} from table
      */
     private List<String> columnNameList;
@@ -67,14 +62,6 @@ public class SelectSql extends Sql {
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
-    }
-
-    public boolean isUseCount() {
-        return useCount;
-    }
-
-    public void setUseCount(boolean useCount) {
-        this.useCount = useCount;
     }
 
     public List<String> getColumnNameList() {
