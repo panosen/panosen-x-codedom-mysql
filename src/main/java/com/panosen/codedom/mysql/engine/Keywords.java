@@ -104,4 +104,34 @@ public class Keywords {
      * count
      */
     public static final String COUNT = "count";
+
+    /**
+     * join
+     */
+    public static String JOIN = "join";
+
+    /**
+     * inner
+     */
+    public static String INNER = "inner";
+
+    /**
+     * left
+     */
+    public static String LEFT = "left";
+
+    /**
+     * right
+     */
+    public static String RIGHT = "right";
+
+    /**
+     * cross
+     */
+    public static String CROSS = "cross";
+
+    /**
+     * on
+     */
+    public static String ON = "on";
 }

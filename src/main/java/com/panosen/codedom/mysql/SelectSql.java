@@ -53,6 +53,11 @@ public class SelectSql extends Sql {
      */
     private GroupBy groupBy;
 
+    /**
+     * join
+     */
+    private List<Join> joinList;
+
     public String getTableSchema() {
         return tableSchema;
     }
@@ -123,5 +128,13 @@ public class SelectSql extends Sql {
 
     public void setGroupBy(GroupBy groupBy) {
         this.groupBy = groupBy;
+    }
+
+    public List<Join> getJoinList() {
+        return joinList;
+    }
+
+    public void setJoinList(List<Join> joinList) {
+        this.joinList = joinList;
     }
 }

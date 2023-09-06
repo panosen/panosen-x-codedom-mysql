@@ -58,6 +58,45 @@ public class SelectSqlEngine extends SqlEngine {
         // tableName
         codeWriter.write(Marks.BACKQUOTE).write(selectSql.getTableName()).write(Marks.BACKQUOTE);
 
+        //join
+        if (selectSql.getJoinList() != null && !selectSql.getJoinList().isEmpty()) {
+            for (Join join : selectSql.getJoinList()) {
+
+                //joinType
+                if (join.getJoinType() == null) {
+                    codeWriter.write(Marks.WHITESPACE).write(Keywords.JOIN);
+                } else {
+                    switch (join.getJoinType()) {
+                        case LeftJoin:
+                            codeWriter.write(Marks.WHITESPACE).write(Keywords.LEFT).write(Marks.WHITESPACE).write(Keywords.JOIN);
+                            break;
+                        case CrossJoin:
+                            codeWriter.write(Marks.WHITESPACE).write(Keywords.CROSS).write(Marks.WHITESPACE).write(Keywords.JOIN);
+                            break;
+                        case InnerJoin:
+                            codeWriter.write(Marks.WHITESPACE).write(Keywords.INNER).write(Marks.WHITESPACE).write(Keywords.JOIN);
+                            break;
+                        case RightJoin:
+                            codeWriter.write(Marks.WHITESPACE).write(Keywords.RIGHT).write(Marks.WHITESPACE).write(Keywords.JOIN);
+                            break;
+                        case None:
+                        default:
+                            codeWriter.write(Marks.WHITESPACE).write(Keywords.JOIN);
+                            break;
+                    }
+                }
+
+                if (!Strings.isNullOrEmpty(join.getTableName())) {
+                    codeWriter.write(Marks.WHITESPACE).write(Marks.BACKQUOTE).write(join.getTableName()).write(Marks.BACKQUOTE);
+                }
+
+                //on
+                if (!Strings.isNullOrEmpty(join.getOn())) {
+                    codeWriter.write(Marks.WHITESPACE).write(Keywords.ON).write(Marks.WHITESPACE).write(join.getOn());
+                }
+            }
+        }
+
         // where
         generateWhere(selectSql.getWhere(), codeWriter, parameters);
 

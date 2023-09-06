@@ -3,6 +3,7 @@ package com.panosen.codedom.mysql.builder;
 import com.google.common.collect.Lists;
 import com.panosen.codedom.mysql.OrderBy;
 import com.panosen.codedom.mysql.SelectSql;
+import com.panosen.codedom.mysql.enums.JoinType;
 
 public class SelectSqlBuilder {
 
@@ -82,5 +83,26 @@ public class SelectSqlBuilder {
         ConditionsBuilder conditionsBuilder = new ConditionsBuilder();
         selectSql.setWhere(conditionsBuilder.getConditionStatement());
         return conditionsBuilder;
+    }
+
+    public JoinBuilder join(String tableName) {
+        if (selectSql.getJoinList() == null) {
+            selectSql.setJoinList(Lists.newArrayList());
+        }
+        JoinBuilder joinBuilder = new JoinBuilder();
+        joinBuilder.setTableName(tableName);
+        selectSql.getJoinList().add(joinBuilder.getJoin());
+        return joinBuilder;
+    }
+
+    public JoinBuilder join(String tableName, JoinType joinType) {
+        if (selectSql.getJoinList() == null) {
+            selectSql.setJoinList(Lists.newArrayList());
+        }
+        JoinBuilder joinBuilder = new JoinBuilder();
+        joinBuilder.setTableName(tableName);
+        joinBuilder.setJoinType(joinType);
+        selectSql.getJoinList().add(joinBuilder.getJoin());
+        return joinBuilder;
     }
 }
