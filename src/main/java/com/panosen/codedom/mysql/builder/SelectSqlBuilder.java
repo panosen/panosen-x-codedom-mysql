@@ -1,9 +1,10 @@
 package com.panosen.codedom.mysql.builder;
 
 import com.google.common.collect.Lists;
+import com.panosen.codedom.mysql.ColumnBuilder;
 import com.panosen.codedom.mysql.OrderBy;
 import com.panosen.codedom.mysql.SelectSql;
-import com.panosen.codedom.mysql.enums.JoinType;
+import com.panosen.codedom.mysql.Table;
 
 public class SelectSqlBuilder {
 
@@ -18,30 +19,24 @@ public class SelectSqlBuilder {
         return this;
     }
 
-    public SelectSqlBuilder column(String column) {
-        if (selectSql.getColumnNameList() == null) {
-            selectSql.setColumnNameList(Lists.newArrayList());
+    public ColumnBuilder column(String columnName) {
+        if (selectSql.getColumnList() == null) {
+            selectSql.setColumnList(Lists.newArrayList());
         }
-        selectSql.getColumnNameList().add(column);
-        return this;
+
+        ColumnBuilder columnBuilder = new ColumnBuilder();
+        selectSql.getColumnList().add(columnBuilder.getColumn());
+
+        columnBuilder.name(columnName);
+
+        return columnBuilder;
     }
 
-    public SelectSqlBuilder columns(String... columns) {
-        if (selectSql.getColumnNameList() == null) {
-            selectSql.setColumnNameList(Lists.newArrayList());
-        }
-        selectSql.getColumnNameList().addAll(Lists.newArrayList(columns));
-        return this;
-    }
-
-    public SelectSqlBuilder from(String tableName) {
-        return from(tableName, null);
-    }
-
-    public SelectSqlBuilder from(String tableName, String tableSchema) {
-        selectSql.setTableSchema(tableSchema);
-        selectSql.setTableName(tableName);
-        return this;
+    public TableBuilder from(String tableName) {
+        TableBuilder tableBuilder = new TableBuilder();
+        tableBuilder.name(tableName);
+        selectSql.setTable(tableBuilder.getTable());
+        return tableBuilder;
     }
 
     public SelectSqlBuilder limit(Integer limitSize) {
@@ -89,20 +84,11 @@ public class SelectSqlBuilder {
         if (selectSql.getJoinList() == null) {
             selectSql.setJoinList(Lists.newArrayList());
         }
-        JoinBuilder joinBuilder = new JoinBuilder();
-        joinBuilder.setTableName(tableName);
-        selectSql.getJoinList().add(joinBuilder.getJoin());
-        return joinBuilder;
-    }
 
-    public JoinBuilder join(String tableName, JoinType joinType) {
-        if (selectSql.getJoinList() == null) {
-            selectSql.setJoinList(Lists.newArrayList());
-        }
         JoinBuilder joinBuilder = new JoinBuilder();
-        joinBuilder.setTableName(tableName);
-        joinBuilder.setJoinType(joinType);
+        joinBuilder.table(tableName);
         selectSql.getJoinList().add(joinBuilder.getJoin());
+
         return joinBuilder;
     }
 }

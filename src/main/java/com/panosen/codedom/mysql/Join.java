@@ -6,7 +6,7 @@ public class Join {
 
     private JoinType joinType;
 
-    private String tableName;
+    private Table table;
 
     private String on;
 
@@ -18,12 +18,12 @@ public class Join {
         this.joinType = joinType;
     }
 
-    public String getTableName() {
-        return tableName;
+    public Table getTable() {
+        return table;
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
+    public void setTable(Table table) {
+        this.table = table;
     }
 
     public String getOn() {

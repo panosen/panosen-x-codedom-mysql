@@ -10,9 +10,9 @@ public class SelectSqlBuilderOrderByTest {
     @Test
     public void build() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student")
-                .orderBy("name")
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
+        selectSqlBuilder.orderBy("name")
                 .orderBy("age", true);
 
         GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);

@@ -17,9 +17,9 @@ public class SelectSqlBuilderWhereTest {
     @Test
     public void build4() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student")
-                .limit(10, 15);
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
+        selectSqlBuilder.limit(10, 15);
 
         selectSqlBuilder.where()
                 .equal("age", Types.INTEGER, 12);
@@ -37,9 +37,9 @@ public class SelectSqlBuilderWhereTest {
     @Test
     public void build5() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student")
-                .limit(10, 15);
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
+        selectSqlBuilder.limit(10, 15);
 
         selectSqlBuilder.where().must()
                 .equal("x", Types.INTEGER, 12)
@@ -58,9 +58,9 @@ public class SelectSqlBuilderWhereTest {
     @Test
     public void build6() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student")
-                .limit(10, 15);
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
+        selectSqlBuilder.limit(10, 15);
 
         MustConditions must = selectSqlBuilder.where().must();
         must.should()
@@ -87,9 +87,9 @@ public class SelectSqlBuilderWhereTest {
     @Test
     public void build7() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student")
-                .limit(10, 15);
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
+        selectSqlBuilder.limit(10, 15);
 
         ShouldConditions should = selectSqlBuilder.where().should();
         should.must()
@@ -116,9 +116,9 @@ public class SelectSqlBuilderWhereTest {
     @Test
     public void build8() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student")
-                .limit(10, 15);
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
+        selectSqlBuilder.limit(10, 15);
 
         selectSqlBuilder.where()
                 .in("age", Types.INTEGER, 12, 13);
@@ -138,9 +138,9 @@ public class SelectSqlBuilderWhereTest {
     @Test
     public void build9() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student")
-                .limit(10, 15);
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
+        selectSqlBuilder.limit(10, 15);
 
         selectSqlBuilder.where()
                 .in("age", Types.INTEGER, Lists.newArrayList(12, 13));
@@ -160,9 +160,9 @@ public class SelectSqlBuilderWhereTest {
     @Test
     public void build10() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student")
-                .limit(10, 15);
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
+        selectSqlBuilder.limit(10, 15);
 
         selectSqlBuilder.where()
                 .in("age", Types.INTEGER, Lists.newArrayList("A", "B"));
@@ -184,9 +184,9 @@ public class SelectSqlBuilderWhereTest {
 
         List<String> names = Lists.newArrayList("A", "B");
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student")
-                .limit(10, 15);
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
+        selectSqlBuilder.limit(10, 15);
 
         selectSqlBuilder.where()
                 .in("name", Types.VARCHAR, names);

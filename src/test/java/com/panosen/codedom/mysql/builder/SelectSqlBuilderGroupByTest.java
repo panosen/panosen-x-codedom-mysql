@@ -13,8 +13,8 @@ public class SelectSqlBuilderGroupByTest {
     @Test
     public void simple() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student");
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
 
         selectSqlBuilder.groupBy().columns("name", "age");
 
@@ -28,8 +28,8 @@ public class SelectSqlBuilderGroupByTest {
     @Test
     public void having() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student");
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
 
         selectSqlBuilder
                 .groupBy().columns("name", "age")

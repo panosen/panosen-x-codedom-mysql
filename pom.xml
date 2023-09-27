@@ -6,7 +6,7 @@
 
     <groupId>com.panosen</groupId>
     <artifactId>panosen-codedom-mysql</artifactId>
-    <version>0.6.4</version>
+    <version>0.6.5</version>
 
     <parent>
         <groupId>com.panosen</groupId>

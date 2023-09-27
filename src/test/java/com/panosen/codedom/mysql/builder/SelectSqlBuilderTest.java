@@ -10,8 +10,8 @@ public class SelectSqlBuilderTest {
     @Test
     public void build1() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student");
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
 
         GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
@@ -23,8 +23,8 @@ public class SelectSqlBuilderTest {
     @Test
     public void build3() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("table","information_schema");
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("table").schema("information_schema");
 
         GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
@@ -36,9 +36,10 @@ public class SelectSqlBuilderTest {
     @Test
     public void build2() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .columns("name", "age")
-                .from("student");
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.column("name");
+        selectSqlBuilder.column("age");
+        selectSqlBuilder.from("student");
 
         GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();

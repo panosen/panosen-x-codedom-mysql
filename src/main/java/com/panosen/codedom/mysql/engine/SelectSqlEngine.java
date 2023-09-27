@@ -35,9 +35,11 @@ public class SelectSqlEngine extends SqlEngine {
             codeWriter.write(Keywords.COUNT).write(Marks.LEFT_BRACKET).write(Marks.STAR).write(Marks.RIGHT_BRACKET);
         } else {
             // columns
-            if (selectSql.getColumnNameList() != null && !selectSql.getColumnNameList().isEmpty()) {
-                for (int index = 0, length = selectSql.getColumnNameList().size(); index < length; index++) {
-                    codeWriter.write(Marks.BACKQUOTE).write(selectSql.getColumnNameList().get(index)).write(Marks.BACKQUOTE);
+            if (selectSql.getColumnList() != null && !selectSql.getColumnList().isEmpty()) {
+                for (int index = 0, length = selectSql.getColumnList().size(); index < length; index++) {
+                    Column column = selectSql.getColumnList().get(index);
+                    generateColumn(codeWriter, column);
+
                     if (index < length - 1) {
                         codeWriter.write(Marks.COMMA).write(Marks.WHITESPACE);
                     }
@@ -46,54 +48,15 @@ public class SelectSqlEngine extends SqlEngine {
                 codeWriter.write(Marks.STAR);
             }
         }
-        // from
-        codeWriter.write(Marks.WHITESPACE).write(Keywords.FROM).write(Marks.WHITESPACE);
 
-        //tableSchema
-        if (!Strings.isNullOrEmpty(selectSql.getTableSchema())) {
-            codeWriter.write(Marks.BACKQUOTE).write(selectSql.getTableSchema()).write(Marks.BACKQUOTE);
-            codeWriter.write(Marks.DOT);
-        }
-
-        // tableName
-        codeWriter.write(Marks.BACKQUOTE).write(selectSql.getTableName()).write(Marks.BACKQUOTE);
+        // from table
+        generateFromTable(codeWriter, selectSql.getTable());
 
         //join
         if (selectSql.getJoinList() != null && !selectSql.getJoinList().isEmpty()) {
             for (Join join : selectSql.getJoinList()) {
 
-                //joinType
-                if (join.getJoinType() == null) {
-                    codeWriter.write(Marks.WHITESPACE).write(Keywords.JOIN);
-                } else {
-                    switch (join.getJoinType()) {
-                        case LeftJoin:
-                            codeWriter.write(Marks.WHITESPACE).write(Keywords.LEFT).write(Marks.WHITESPACE).write(Keywords.JOIN);
-                            break;
-                        case CrossJoin:
-                            codeWriter.write(Marks.WHITESPACE).write(Keywords.CROSS).write(Marks.WHITESPACE).write(Keywords.JOIN);
-                            break;
-                        case InnerJoin:
-                            codeWriter.write(Marks.WHITESPACE).write(Keywords.INNER).write(Marks.WHITESPACE).write(Keywords.JOIN);
-                            break;
-                        case RightJoin:
-                            codeWriter.write(Marks.WHITESPACE).write(Keywords.RIGHT).write(Marks.WHITESPACE).write(Keywords.JOIN);
-                            break;
-                        case None:
-                        default:
-                            codeWriter.write(Marks.WHITESPACE).write(Keywords.JOIN);
-                            break;
-                    }
-                }
-
-                if (!Strings.isNullOrEmpty(join.getTableName())) {
-                    codeWriter.write(Marks.WHITESPACE).write(Marks.BACKQUOTE).write(join.getTableName()).write(Marks.BACKQUOTE);
-                }
-
-                //on
-                if (!Strings.isNullOrEmpty(join.getOn())) {
-                    codeWriter.write(Marks.WHITESPACE).write(Keywords.ON).write(Marks.WHITESPACE).write(join.getOn());
-                }
+                generateJoin(codeWriter, join);
             }
         }
 
@@ -119,6 +82,85 @@ public class SelectSqlEngine extends SqlEngine {
 
         // ;
         codeWriter.write(Marks.SEMICOLON);
+    }
+
+    private static void generateColumn(CodeWriter codeWriter, Column column) {
+
+        if (!Strings.isNullOrEmpty(column.getColumnTable())) {
+            codeWriter.write(Marks.BACKQUOTE).write(column.getColumnTable()).write(Marks.BACKQUOTE);
+
+            codeWriter.write(Marks.DOT);
+        }
+
+        codeWriter.write(Marks.BACKQUOTE).write(column.getColumnName()).write(Marks.BACKQUOTE);
+
+        if (!Strings.isNullOrEmpty(column.getColumnAs())) {
+            codeWriter.write(Marks.WHITESPACE).write(Keywords.AS).write(Marks.WHITESPACE).write(column.getColumnAs());
+        }
+    }
+
+    private void generateJoin(CodeWriter codeWriter, Join join) {
+        //joinType
+        if (join.getJoinType() == null) {
+            codeWriter.write(Marks.WHITESPACE).write(Keywords.JOIN);
+        } else {
+            switch (join.getJoinType()) {
+                case LeftJoin:
+                    codeWriter.write(Marks.WHITESPACE).write(Keywords.LEFT).write(Marks.WHITESPACE).write(Keywords.JOIN);
+                    break;
+                case CrossJoin:
+                    codeWriter.write(Marks.WHITESPACE).write(Keywords.CROSS).write(Marks.WHITESPACE).write(Keywords.JOIN);
+                    break;
+                case InnerJoin:
+                    codeWriter.write(Marks.WHITESPACE).write(Keywords.INNER).write(Marks.WHITESPACE).write(Keywords.JOIN);
+                    break;
+                case RightJoin:
+                    codeWriter.write(Marks.WHITESPACE).write(Keywords.RIGHT).write(Marks.WHITESPACE).write(Keywords.JOIN);
+                    break;
+                case None:
+                default:
+                    codeWriter.write(Marks.WHITESPACE).write(Keywords.JOIN);
+                    break;
+            }
+        }
+
+        generateTable(codeWriter, join.getTable());
+
+        //on
+        if (!Strings.isNullOrEmpty(join.getOn())) {
+            codeWriter.write(Marks.WHITESPACE).write(Keywords.ON).write(Marks.WHITESPACE).write(join.getOn());
+        }
+    }
+
+    private void generateFromTable(CodeWriter codeWriter, Table table) {
+        if (table == null) {
+            return;
+        }
+
+        codeWriter.write(Marks.WHITESPACE).write(Keywords.FROM);
+
+        generateTable(codeWriter, table);
+    }
+
+    private void generateTable(CodeWriter codeWriter, Table table) {
+        if (table == null) {
+            return;
+        }
+
+        codeWriter.write(Marks.WHITESPACE);
+
+        //tableSchema
+        if (!Strings.isNullOrEmpty(table.getTableSchema())) {
+            codeWriter.write(Marks.BACKQUOTE).write(table.getTableSchema()).write(Marks.BACKQUOTE);
+            codeWriter.write(Marks.DOT);
+        }
+
+        // tableName
+        codeWriter.write(Marks.BACKQUOTE).write(table.getTableName()).write(Marks.BACKQUOTE);
+
+        if (!Strings.isNullOrEmpty(table.getTableAlias())) {
+            codeWriter.write(Marks.WHITESPACE).write(table.getTableAlias());
+        }
     }
 
     private void generateOrderBy(List<OrderBy> orderByList, CodeWriter codeWriter) {

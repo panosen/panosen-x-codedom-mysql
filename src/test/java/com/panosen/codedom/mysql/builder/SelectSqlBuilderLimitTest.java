@@ -10,9 +10,9 @@ public class SelectSqlBuilderLimitTest {
     @Test
     public void build2() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student")
-                .limit(10);
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
+        selectSqlBuilder.limit(10);
 
         GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();
@@ -24,9 +24,9 @@ public class SelectSqlBuilderLimitTest {
     @Test
     public void build3() {
 
-        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder()
-                .from("student")
-                .limit(10, 15);
+        SelectSqlBuilder selectSqlBuilder = new SelectSqlBuilder();
+        selectSqlBuilder.from("student");
+        selectSqlBuilder.limit(10, 15);
 
         GenerationResponse generationResponse = new SelectSqlEngine().generate(selectSqlBuilder);
         String actual = generationResponse.getSql();

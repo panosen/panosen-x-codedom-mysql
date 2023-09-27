@@ -8,14 +8,9 @@ import java.util.List;
 public class SelectSql extends Sql {
 
     /**
-     * select * from ${tableSchema}.tableName;
+     * select * from ${tableSchema}.tableName alias;
      */
-    private String tableSchema;
-
-    /**
-     * select * from ${tableName};
-     */
-    private String tableName;
+    private Table table;
 
     /**
      * select count(*) from ${tableName}
@@ -23,9 +18,9 @@ public class SelectSql extends Sql {
     private boolean useCount;
 
     /**
-     * select ${columnNameList} from table
+     * select ${columnList} from table
      */
-    private List<String> columnNameList;
+    private List<Column> columnList;
 
     /**
      * Only useful when limitSize is set.
@@ -58,20 +53,12 @@ public class SelectSql extends Sql {
      */
     private List<Join> joinList;
 
-    public String getTableSchema() {
-        return tableSchema;
+    public Table getTable() {
+        return table;
     }
 
-    public void setTableSchema(String tableSchema) {
-        this.tableSchema = tableSchema;
-    }
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
+    public void setTable(Table table) {
+        this.table = table;
     }
 
     public boolean isUseCount() {
@@ -82,12 +69,12 @@ public class SelectSql extends Sql {
         this.useCount = useCount;
     }
 
-    public List<String> getColumnNameList() {
-        return columnNameList;
+    public List<Column> getColumnList() {
+        return columnList;
     }
 
-    public void setColumnNameList(List<String> columnNameList) {
-        this.columnNameList = columnNameList;
+    public void setColumnList(List<Column> columnList) {
+        this.columnList = columnList;
     }
 
     public Integer getLimitFrom() {
