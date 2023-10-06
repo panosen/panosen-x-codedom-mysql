@@ -119,7 +119,11 @@ public abstract class SqlEngine {
     }
 
     private void generateSimpleCondition(SimpleCondition simpleCondition, CodeWriter codeWriter, Parameters parameters, String mathOperator) {
-        codeWriter.write(Marks.BACKQUOTE).write(simpleCondition.getFieldName()).write(Marks.BACKQUOTE)
+        String fieldName = simpleCondition.getFieldName();
+        if (fieldName.contains(".")) {
+            fieldName = fieldName.replace(".", "`.`");
+        }
+        codeWriter.write(Marks.BACKQUOTE).write(fieldName).write(Marks.BACKQUOTE)
                 .write(Marks.WHITESPACE)
                 .write(mathOperator)
                 .write(Marks.WHITESPACE)
@@ -128,7 +132,11 @@ public abstract class SqlEngine {
     }
 
     private void generateInCondition(InCondition inCondition, CodeWriter codeWriter, Parameters parameters) {
-        codeWriter.write(Marks.BACKQUOTE).write(inCondition.getFieldName()).write(Marks.BACKQUOTE)
+        String fieldName = inCondition.getFieldName();
+        if (fieldName.contains(".")) {
+            fieldName = fieldName.replace(".", "`.`");
+        }
+        codeWriter.write(Marks.BACKQUOTE).write(fieldName).write(Marks.BACKQUOTE)
                 .write(Marks.WHITESPACE)
                 .write(Keywords.IN)
                 .write(Marks.WHITESPACE);
