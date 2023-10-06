@@ -1,4 +1,6 @@
-package com.panosen.codedom.mysql;
+package com.panosen.codedom.mysql.builder;
+
+import com.panosen.codedom.mysql.Column;
 
 public class ColumnBuilder {
 

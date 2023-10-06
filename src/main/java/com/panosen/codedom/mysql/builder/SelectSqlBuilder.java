@@ -1,10 +1,8 @@
 package com.panosen.codedom.mysql.builder;
 
 import com.google.common.collect.Lists;
-import com.panosen.codedom.mysql.ColumnBuilder;
 import com.panosen.codedom.mysql.OrderBy;
 import com.panosen.codedom.mysql.SelectSql;
-import com.panosen.codedom.mysql.Table;
 
 public class SelectSqlBuilder {
 
