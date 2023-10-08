@@ -70,4 +70,12 @@ public class ConditionBuilders {
         inCondition.setValues(Lists.newArrayList(values));
         return inCondition;
     }
+
+    public static LikeCondition likeCondition(String fieldName, int dbType, Object value) {
+        LikeCondition likeCondition = new LikeCondition();
+        likeCondition.setFieldName(fieldName);
+        likeCondition.setDbType(dbType);
+        likeCondition.setValue(value);
+        return likeCondition;
+    }
 }

@@ -59,6 +59,10 @@ public abstract class SqlEngine {
         if (condition instanceof ShouldConditions) {
             generateShoudConditions((ShouldConditions) condition, codeWriter, parameters, parenthesis);
         }
+
+        if (condition instanceof LikeCondition) {
+            generateLikeCondition((LikeCondition) condition, codeWriter, parameters);
+        }
     }
 
     private void generateMustConditions(MustConditions mustConditions, CodeWriter codeWriter, Parameters parameters, boolean parenthesis) {
@@ -116,6 +120,10 @@ public abstract class SqlEngine {
 
     private void generateLteCondition(LteCondition lteCondition, CodeWriter codeWriter, Parameters parameters) {
         generateSimpleCondition(lteCondition, codeWriter, parameters, Marks.LESS_EQUAL_THAN);
+    }
+
+    private void generateLikeCondition(LikeCondition likeCondition, CodeWriter codeWriter, Parameters parameters) {
+        generateSimpleCondition(likeCondition, codeWriter, parameters, Keywords.LIKE);
     }
 
     private void generateSimpleCondition(SimpleCondition simpleCondition, CodeWriter codeWriter, Parameters parameters, String mathOperator) {

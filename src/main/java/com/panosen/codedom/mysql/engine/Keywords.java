@@ -106,6 +106,11 @@ public class Keywords {
     public static final String COUNT = "count";
 
     /**
+     * like
+     */
+    public static final String LIKE = "like";
+
+    /**
      * join
      */
     public static String JOIN = "join";

@@ -91,4 +91,11 @@ public abstract class Conditions<TConditions extends Conditions<?>> extends Cond
         addCondition(inCondition);
         return (TConditions) this;
     }
+
+    @SuppressWarnings("unchecked")
+    public TConditions like(String fieldName, int dbType, Object value) {
+        LikeCondition equalCondition = ConditionBuilders.likeCondition(fieldName, dbType, value);
+        addCondition(equalCondition);
+        return (TConditions) this;
+    }
 }

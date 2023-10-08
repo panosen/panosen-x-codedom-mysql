@@ -52,4 +52,9 @@ public class ConditionsBuilder {
         InCondition inCondition = ConditionBuilders.inCondition(fieldName, dbType, values);
         conditionStatement.setCondition(inCondition);
     }
+
+    public void like(String fieldName, int dbType, Object value) {
+        LikeCondition equalCondition = ConditionBuilders.likeCondition(fieldName, dbType, value);
+        conditionStatement.setCondition(equalCondition);
+    }
 }
